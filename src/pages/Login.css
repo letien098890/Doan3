@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -84,4 +84,4 @@ body {
 }
 .login-form .action button:nth-child(2):hover {
     background: #3c4d6d;
-}
+} */
