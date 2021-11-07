@@ -29,30 +29,6 @@ const FormStaffs = (props) => {
     form.resetFields();
   }, [props.infoStaff]);
 
-  const createStaff = async () => {
-    await addDoc(staffsCollectionRef, {
-      name: newName,
-      yearofbirth: Number(newYearofbirth),
-      gioitinh: newGioitinh,
-      sdt: Number(newSDT),
-      diachi: newDiachi,
-      chucvu: newChucvu,
-    });
-    history.push("/staffs");
-  };
-
-  const updateStaff = async () => {
-    await updateDoc(doc(db, "staffs", props.infoStaff.id), {
-      name: newName,
-      yearofbirth: Number(newYearofbirth),
-      gioitinh: newGioitinh,
-      sdt: Number(newSDT),
-      diachi: newDiachi,
-      chucvu: newChucvu,
-    });
-    // history.push("/staffs");
-  };
-
   return (
     <>
       <Form
@@ -129,7 +105,7 @@ const FormStaffs = (props) => {
             type="primary"
             htmlType="submit"
             style={{}}
-            onClick={props.isEdit ? updateStaff : createStaff}
+            // onClick={props.isEdit ? updateStaff : createStaff}
           >
             {props.isEdit ? "Cập nhật" : "Thêm"}
           </Button>

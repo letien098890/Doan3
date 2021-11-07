@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import FormStaffs from "./form-staff";
 import { db } from "../../firebase-config";
-import { collection, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+  addDoc,
+} from "firebase/firestore";
 
 const Manage = (props) => {
   debugger;
@@ -11,6 +18,7 @@ const Manage = (props) => {
   const [infoStaff, setInfoStaff] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const staffsCollectionRef = collection(db, "staffs");
+  const history = useHistory();
 
   useEffect(() => {
     if (param !== "new") {
@@ -30,9 +38,24 @@ const Manage = (props) => {
     }
   }, [props.match.params.id]);
 
-  const onFinish = (values) => {
+  const updateStaff = async (values) => {
+    await updateDoc(doc(db, "staffs", infoStaff.id), values);
+  };
+
+  const createStaff = async (values) => {
+    await addDoc(staffsCollectionRef, values);
+  };
+
+  const onFinish = async (values) => {
     // debugger;
-    console.log("Success:", values);
+    if (isEdit) {
+      await updateStaff(values);
+    } else {
+      // create
+      await createStaff(values);
+    }
+
+    history.push("/staffs");
   };
   return (
     <>
