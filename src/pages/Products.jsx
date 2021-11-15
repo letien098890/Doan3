@@ -1,11 +1,25 @@
-import React from 'react'
+import React from "react";
+import ListProducts from "../components/product-details/list";
+function Products() {
+  return (
+    <div className="Products">
+      <ListProducts />
 
-const Products = () => {
-    return (
-        <div>
-           Sản Phẩm
-        </div>
-    )
+      {}
+    </div>
+  );
 }
 
-export default Products
+export default Products;
+
+// import React from 'react'
+
+// const Products = () => {
+//     return (
+//         <div>
+//             <ListProducts />
+//         </div>
+//     )
+// }
+
+// export default Products

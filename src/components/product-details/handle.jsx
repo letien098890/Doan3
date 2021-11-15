@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import FormStaffs from "./form-staff";
+import FormProducts from "./form-product";
 import { db } from "../../firebase-config";
 import {
   collection,
@@ -12,58 +12,61 @@ import {
   addDoc,
 } from "firebase/firestore";
 
-const Manage = (props) => {
-  // debugger;
+const Handle = (props) => {
   const param = props.match.params.id;
-  const [infoStaff, setInfoStaff] = useState(null);
+  const [infoProduct, setInfoProduct] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
-  const staffsCollectionRef = collection(db, "staffs");
+  const productsCollectionRef = collection(db, "products");
   const history = useHistory();
 
   useEffect(() => {
     if (param !== "new") {
       //TODO
-      const getStaffs = async () => {
-        const data = await getDocs(staffsCollectionRef);
+      const getProducts = async () => {
+        const data = await getDocs(productsCollectionRef);
         const dataInit = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        setInfoStaff(dataInit.find((item) => item.id === param));
+        setInfoProduct(dataInit.find((item) => item.id === param));
         setIsEdit(true);
       };
 
-      getStaffs();
-      //setInfoStaff
+      getProducts();
+      //setinfoProduct
     }
   }, [props.match.params.id]);
 
-  const updateStaff = async (values) => {
-    await updateDoc(doc(db, "staffs", infoStaff.id), values);
+  const updateProduct = async (values) => {
+    await updateDoc(doc(db, "products", infoProduct.id), values);
   };
 
-  const createStaff = async (values) => {
-    await addDoc(staffsCollectionRef, values);
+  const createProduct = async (values) => {
+    await addDoc(productsCollectionRef, values);
   };
 
   const onFinish = async (values) => {
     // debugger;
     if (isEdit) {
-      await updateStaff(values);
+      await updateProduct(values);
     } else {
       // create
-      await createStaff(values);
+      await createProduct(values);
     }
 
-    history.push("/staffs");
+    history.push("/products");
   };
   return (
     <>
-      <FormStaffs isEdit={isEdit} infoStaff={infoStaff} onFinish={onFinish} />
+      <FormProducts
+        isEdit={isEdit}
+        infoProduct={infoProduct}
+        onFinish={onFinish}
+      />
     </>
   );
 };
-Manage.propTypes = {
+Handle.propTypes = {
   props: PropTypes.any,
 };
-export default Manage;
+export default Handle;
