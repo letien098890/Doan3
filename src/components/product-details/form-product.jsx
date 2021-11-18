@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Button, Col, Form, Input, Row, Upload, message } from "antd";
-import React, { useEffect } from "react";
+import { Button, Col, Form, Input, Row, Upload, message, Modal } from "antd";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
+// import { UploadOutlined } from "@ant-design/icons";
+// import { storage } from "../../firebase-config";
+// import { PlusOutlined } from "@ant-design/icons";
 const layout = {
   labelCol: {
     xs: { span: 24 },
@@ -13,9 +15,10 @@ const layout = {
     sm: { span: 24 },
   },
 };
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 24 },
-};
+// const tailLayout = {
+//   wrapperCol: { offset: 8, span: 24 },
+// };
+
 const FormProducts = (props) => {
   console.log("infor", props);
 
@@ -25,7 +28,46 @@ const FormProducts = (props) => {
 
   useEffect(() => {
     formptoduct.resetFields();
-  }, [props.infoProduct]);
+  }, [formptoduct, props.infoProduct]);
+
+  // const [fileList, setFileList] = useState([]);
+
+  // const onChange = ({ fileList: newFileList }) => {
+  //   setFileList(newFileList);
+  // };
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow.document.write(image.outerHTML);
+  };
+
+  // const props2 = {
+  //   name: "file",
+  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  //   headers: {
+  //     authorization: "authorization-text",
+  //   },
+  //   onChange(info) {
+  //     if (info.file.status !== "uploading") {
+  //       console.log(info.file, info.fileList);
+  //     }
+  //     if (info.file.status === "done") {
+  //       message.success(`${info.file.name} file uploaded successfully`);
+  //     } else if (info.file.status === "error") {
+  //       message.error(`${info.file.name} file upload failed.`);
+  //     }
+  //   },
+  // };
 
   return (
     <>
@@ -62,10 +104,21 @@ const FormProducts = (props) => {
             <Form.Item
               name={"hinhanh"}
               label="Hình Ảnh"
-              rules={[{ required: true }]}
+              rules={[{ required: false }]}
             >
-              <Upload {...props}>
+              {/* <Upload {...props2}>
                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
+              </Upload> */}
+              {/* <Input type="file" />, */}
+
+              <Upload
+                listType="picture-card"
+                // fileList={fileList}
+                // onChange={onChange}
+                onPreview={onPreview}
+                beforeUpload={Upload.LIST_IGNORE}
+              >
+                {"Upload"}
               </Upload>
             </Form.Item>
           </Col>

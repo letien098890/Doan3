@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import FormProducts from "./form-product";
-import { db } from "../../firebase-config";
+import { db, storage } from "../../firebase-config";
 import {
   collection,
   getDocs,
@@ -11,7 +11,13 @@ import {
   doc,
   addDoc,
 } from "firebase/firestore";
-
+const convertToSlug = (text) => {
+  if (text === "" || text === undefined) return "";
+  return text
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+};
 const Handle = (props) => {
   const param = props.match.params.id;
   const [infoProduct, setInfoProduct] = useState(null);
@@ -42,11 +48,16 @@ const Handle = (props) => {
   };
 
   const createProduct = async (values) => {
+    const a = convertToSlug(values.hinhanh.file.name);
+    const image = await storage.uploadAndGetUrl(
+      values.hinhanh.file,
+      convertToSlug(values.hinhanh.file.name)
+    );
+    values.hinhanh = image;
     await addDoc(productsCollectionRef, values);
   };
 
   const onFinish = async (values) => {
-    // debugger;
     if (isEdit) {
       await updateProduct(values);
     } else {
@@ -54,7 +65,7 @@ const Handle = (props) => {
       await createProduct(values);
     }
 
-    history.push("/products");
+    // history.push("/products");refresh
   };
   return (
     <>

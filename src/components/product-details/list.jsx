@@ -33,7 +33,18 @@ const ListProducts = (props) => {
     },
     { title: "Loại", dataIndex: "loai" },
     { title: "Giá", dataIndex: "gia" },
-    { title: "Hình Ảnh", dataIndex: "hinhanh" },
+    {
+      title: "Hình Ảnh",
+      dataIndex: "hinhanh",
+      render: (record) => {
+        // console.log(record);
+        return (
+          <div>
+            <img height="50px" src={record.url} alt="" />
+          </div>
+        );
+      },
+    },
     { title: "Mô Tả", dataIndex: "mota" },
     {
       title: "",
