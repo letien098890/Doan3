@@ -1,6 +1,12 @@
 import React from "react";
-const Login = () => {
-  return <div>Auth</div>;
-};
+import LoginApp from "../components/FormInput/LoginApp";
+
+function Login() {
+  return (
+    <div className="login">
+      <LoginApp></LoginApp>
+    </div>
+  );
+}
 
 export default Login;

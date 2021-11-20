@@ -14,7 +14,7 @@ import './assets/css/theme.css'
 import './assets/css/index.css'
 import 'antd/dist/antd.css';
 import Layout from './components/layout/Layout'
-
+import { AuthProvider } from './contexts/AuthContext';
 const store = createStore(
   rootReducer
 )
@@ -24,7 +24,9 @@ document.title = 'LAMON COFFEE'
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
+    <AuthProvider>
       <Layout />
+      </AuthProvider>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')

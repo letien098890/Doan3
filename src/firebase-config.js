@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { uploadBytes, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -16,7 +17,9 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
 
   export const db = getFirestore(app);
+  export const auth = getAuth(app);
   export const dbStorage = getStorage(app);
+  
   
   const uploadFile = async (file, nameFile, parentFolder = "products") => {
     const fullPath = `${parentFolder}/${nameFile}`;

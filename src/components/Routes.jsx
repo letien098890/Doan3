@@ -5,6 +5,7 @@ import Customers from "../pages/Customers";
 import Products from "../pages/Products";
 import Staffs from "../pages/Staffs";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 import Manage from "./staffs-details/manage";
 import { NotFound, PrivateRoute } from "./common";
 import Handle from "./product-details/handle";
@@ -12,6 +13,8 @@ import Handle from "./product-details/handle";
 const Routes = () => {
   return (
     <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <PrivateRoute>
         <Switch>
           <Route exact path="/" component={Dashboard} />
@@ -22,7 +25,7 @@ const Routes = () => {
           <Route path="/products" component={Products} exact />
         </Switch>
       </PrivateRoute>
-      <Route path="/login" component={Login} />
+
       <Route component={NotFound} />
     </Switch>
   );

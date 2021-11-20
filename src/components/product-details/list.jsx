@@ -40,7 +40,7 @@ const ListProducts = (props) => {
         // console.log(record);
         return (
           <div>
-            <img height="50px" src={record.url} alt="" />
+            <img height="50px" src={record?.url || "./und.jpg"} alt="" />
           </div>
         );
       },

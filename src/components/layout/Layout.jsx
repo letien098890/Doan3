@@ -32,11 +32,26 @@ const Layout = () => {
       <Route
         render={(props) => (
           <div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
-            {window.location.pathname !== "/login" ? (
+            {!(
+              window.location.pathname === "/login" ||
+              window.location.pathname === "/register"
+            ) ? (
               <Sidebar {...props} />
             ) : null}
-            <div className="layout__content">
-              {window.location.pathname !== "/login" ? <TopNav /> : null}
+            <div
+              className={
+                !(
+                  window.location.pathname === "/login" ||
+                  window.location.pathname === "/register"
+                ) && "layout__content"
+              }
+            >
+              {!(
+                window.location.pathname === "/login" ||
+                window.location.pathname === "/register"
+              ) ? (
+                <TopNav />
+              ) : null}
 
               <div className="layout__content-main">
                 <Routes />
