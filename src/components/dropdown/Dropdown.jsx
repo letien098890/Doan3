@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 
 import "./dropdown.css";
 import PropTypes from "prop-types";
+import { useAuth } from "../../contexts/AuthContext";
 
 const clickOutsideRef = (content_ref, toggle_ref) => {
   document.addEventListener("mousedown", (e) => {
@@ -17,9 +18,15 @@ const clickOutsideRef = (content_ref, toggle_ref) => {
   });
 };
 
+const LOGOUT_ITEM = {
+  icon: "bx bx-log-out-circle bx-rotate-180",
+  content: "Logout",
+};
+
 const Dropdown = (props) => {
   const dropdown_toggle_el = useRef(null);
   const dropdown_content_el = useRef(null);
+  const { logout } = useAuth();
 
   clickOutsideRef(dropdown_content_el, dropdown_toggle_el);
 
@@ -35,11 +42,16 @@ const Dropdown = (props) => {
         {props.customToggle ? props.customToggle() : ""}
       </button>
       <div ref={dropdown_content_el} className="dropdown__content">
-        {props.contentData && props.renderItems
+        {/* {props.contentData && props.renderItems
           ? props.contentData.map((item, index) =>
               props.renderItems(item, index)
             )
-          : ""}
+          : ""} */}
+        <div onClick={logout} className="notification-item">
+          <i className={LOGOUT_ITEM.icon}></i>
+          <span>{LOGOUT_ITEM.content}</span>
+        </div>
+
         {props.renderFooter ? (
           <div className="dropdown__footer">{props.renderFooter()}</div>
         ) : (

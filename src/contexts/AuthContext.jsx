@@ -23,11 +23,11 @@ export function AuthProvider({ children }) {
   }
 
   function login(email, password) {
-    return signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   }
 
   function logout() {
-    return signOut();
+    return signOut(auth);
   }
 
   // function resetPassword(email) {
@@ -44,8 +44,12 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user);
+      console.log("user", user);
+
       setCurrentUser(user);
+      if (user) {
+        setCurrentUser({ id: user.uid, email: user.email });
+      }
       setLoading(false);
     });
 

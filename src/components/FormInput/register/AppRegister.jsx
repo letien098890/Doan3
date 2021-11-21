@@ -41,7 +41,7 @@ const Register = () => {
     e.preventDefault();
     // console.log(values.email);
     register(values.email, values.password);
-    history.push("/login");
+    history.push("/");
   };
 
   const onChange = (e) => {

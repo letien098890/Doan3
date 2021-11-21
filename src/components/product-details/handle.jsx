@@ -44,7 +44,15 @@ const Handle = (props) => {
   }, [props.match.params.id]);
 
   const updateProduct = async (values) => {
+    const image = await storage.uploadAndGetUrl(
+      values.hinhanh.file,
+      convertToSlug(values.hinhanh.file.name)
+    );
+    values.hinhanh = image;
     await updateDoc(doc(db, "products", infoProduct.id), values);
+    history.push("/products");
+
+    // console.log(values);
   };
 
   const createProduct = async (values) => {
@@ -65,7 +73,7 @@ const Handle = (props) => {
       await createProduct(values);
     }
 
-    // history.push("/products");refresh
+    history.push("/products");
   };
   return (
     <>

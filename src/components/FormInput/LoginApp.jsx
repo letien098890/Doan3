@@ -4,12 +4,17 @@ import FormInput from "./FromInput";
 import { Link } from "react-router-dom";
 import Logo from "./Logo-2.png";
 import { useAuth } from "../../contexts/AuthContext";
+import { useHistory } from "react-router-dom";
 
 // import { db } from "../../firebaseConfig";
 // import { collection } from "firebase/firestore";
 // import { doc, setDoc } from "firebase/firestore";
 
 const LoginApp = () => {
+  const history = useHistory();
+  const { currentUser } = useAuth();
+  console.log(currentUser);
+
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -38,9 +43,13 @@ const LoginApp = () => {
     },
   ];
 
+  if (currentUser) {
+    history.push("/");
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    login(values.email, values.password);
   };
 
   const onChange = (e) => {
