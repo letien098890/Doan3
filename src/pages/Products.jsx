@@ -1,3 +1,7 @@
+// import React, { useCallback, useState, useEffect, useRef } from "react";
+
+// import Helmet from "../components/product-details/Helmet";
+// import CheckBox from "../components/product-details/Checkbox";
 import React from "react";
 import ListProducts from "../components/product-details/list";
 function Products() {
@@ -11,15 +15,3 @@ function Products() {
 }
 
 export default Products;
-
-// import React from 'react'
-
-// const Products = () => {
-//     return (
-//         <div>
-//             <ListProducts />
-//         </div>
-//     )
-// }
-
-// export default Products

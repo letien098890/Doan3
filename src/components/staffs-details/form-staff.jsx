@@ -72,7 +72,7 @@ const FormStaffs = (props) => {
         <Row>
           <Col span={12}>
             <Form.Item
-              name={"sdt"}
+              name={"SDT"}
               label="SDT"
               // onChange={(event) => {
               //   setSDT(event.target.value);
@@ -99,8 +99,8 @@ const FormStaffs = (props) => {
         <Row>
           <Col span={12}>
             <Form.Item
-              name={"chucvu"}
-              label="Chuc Vu"
+              name={"vaitro"}
+              label="Vai Trò"
               // onChange={(event) => {
               //   setChucvu(event.target.value);
               // }}

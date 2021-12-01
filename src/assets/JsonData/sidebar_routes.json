@@ -20,8 +20,8 @@
         "icon": "bx bx-package"
     },
     {
-        "display_name": "Quản Lý Đơn Hàng",
-        "route": "/orders",
+        "display_name": "Bán Hàng Tại Quán",
+        "route": "/catalog",
         "icon": "bx bx-cart"
     },
     {

@@ -1,0 +1,4 @@
+{"rules": {
+    // other rules
+    "react/prop-types" : "off"
+  }}

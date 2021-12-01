@@ -9,6 +9,7 @@ import Register from "../pages/Register";
 import Manage from "./staffs-details/manage";
 import { NotFound, PrivateRoute } from "./common";
 import Handle from "./product-details/handle";
+import Catalog from "../pages/Catalog";
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
           <Route path="/customers" component={Customers} />
           <Route path="/staffs" component={Staffs} exact />
           <Route path="/products" component={Products} exact />
+          <Route path="/catalog" component={Catalog} exact />
         </Switch>
       </PrivateRoute>
 

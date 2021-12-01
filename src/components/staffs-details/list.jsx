@@ -21,11 +21,11 @@ import { useHistory } from "react-router-dom";
 // ];
 
 const ListStaffs = (props) => {
-  const [staffs, setStaffs] = useState([]);
-  const staffsCollectionRef = collection(db, "staffs");
+  const [Users, setStaffs] = useState([]);
+  const UsersCollectionRef = collection(db, "Users");
   const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {
-    const unSub = onSnapshot(staffsCollectionRef, (data) => {
+    const unSub = onSnapshot(UsersCollectionRef, (data) => {
       setStaffs(
         data.docs.map((doc, index) => ({
           ...doc.data(),
@@ -63,9 +63,9 @@ const ListStaffs = (props) => {
     },
     { title: "Năm sinh", dataIndex: "yearofbirth" },
     { title: "Giới tính", dataIndex: "gioitinh" },
-    { title: "Phone Number", dataIndex: "sdt" },
+    { title: "Phone Number", dataIndex: "SDT" },
     { title: "Địa Chỉ", dataIndex: "diachi" },
-    { title: "Chức Vụ", dataIndex: "chucvu" },
+    { title: "Vai Trò", dataIndex: "vaitro" },
     {
       title: "",
       render: (record) => (
@@ -95,7 +95,7 @@ const ListStaffs = (props) => {
         Them Nhan Vien
       </Button>
 
-      {staffs && <Table dataSource={staffs} columns={columns} />}
+      {Users && <Table dataSource={Users} columns={columns} />}
     </>
   );
 };
