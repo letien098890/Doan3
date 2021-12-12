@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth } from "../firebase-config";
+import { db, auth } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import PropTypes from "prop-types";
 
 const AuthContext = React.createContext();
@@ -43,12 +44,15 @@ export function AuthProvider({ children }) {
   // }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
-
-      setCurrentUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      // setCurrentUser(user);
       if (user) {
-        setCurrentUser({ id: user.uid, email: user.email });
+        const UserDetail = doc(db, "users", user.uid);
+        const docSnap = await getDoc(UserDetail);
+        const { chucvu } = docSnap.data();
+        if (chucvu === "Admin") {
+          setCurrentUser({ id: user.uid, email: user.email });
+        }
       }
       setLoading(false);
     });

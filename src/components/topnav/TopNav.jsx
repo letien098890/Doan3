@@ -13,6 +13,7 @@ import notifications from "../../assets/JsonData/notification.json";
 import user_image from "../../assets/images/avt (1).jpg";
 
 import user_menu from "../../assets/JsonData/user_menus.json";
+import logout from "../../contexts/AuthContext";
 
 const curr_user = {
   display_name: "Tiến Hoàng",
@@ -22,7 +23,7 @@ const curr_user = {
 const renderNotificationItem = (item, index) => (
   <div className="notification-item" key={index}>
     <i className={item.icon}></i>
-    <span>{item.content}</span>
+    <span>{}</span>
   </div>
 );
 

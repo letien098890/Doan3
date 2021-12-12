@@ -16,18 +16,9 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 24 },
 };
-const FormStaffs = (props) => {
+const FormLuong = (props) => {
   console.log("infor", props);
-
   const [form] = Form.useForm();
-  // const [staffs, setStaffs] = useState([]);
-  // const staffsCollectionRef = collection(db, "staffs");
-  // const [newName, setNewName] = useState("");
-  // const [newYearofbirth, setYearofbirth] = useState(0);
-  // const [newGioitinh, setGioitinh] = useState("");
-  // const [newSDT, setSDT] = useState("");
-  // const [newDiachi, setDiachi] = useState("");
-  // const [newChucvu, setChucvu] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -47,9 +38,6 @@ const FormStaffs = (props) => {
             <Form.Item
               name={"FullName"}
               label="Name"
-              // onChange={(event) => {
-              //   setNewName(event.target.value);
-              // }}
               rules={[{ required: true }]}
             >
               <Input />
@@ -57,8 +45,8 @@ const FormStaffs = (props) => {
           </Col>
           <Col span={12}>
             <Form.Item
-              name={"yearOfBirth"}
-              label="Year of Birth"
+              name={"sogio"}
+              label="Số Giờ"
               // onChange={(event) => {
               //   setYearofbirth(event.target.value);
               // }}
@@ -68,42 +56,20 @@ const FormStaffs = (props) => {
             </Form.Item>
           </Col>
         </Row>
-
         <Row>
           <Col span={12}>
             <Form.Item
-              name={"sdt"}
-              label="SDT"
-              // onChange={(event) => {
-              //   setSDT(event.target.value);
-              // }}
+              name={"luongcoban"}
+              label="Lương Căn Bản"
               rules={[{ required: true }]}
             >
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
-            <Form.Item
-              name={"diachi"}
-              label="Dia Chi"
-              // onChange={(event) => {
-              //   setDiachi(event.target.value);
-              // }}
-              rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row>
           <Col span={12}>
             <Form.Item
               name={"chucvu"}
               label="Vai Trò"
-              // onChange={(event) => {
-              //   setChucvu(event.target.value);
-              // }}
               rules={[{ required: true }]}
             >
               <Input />
@@ -121,7 +87,7 @@ const FormStaffs = (props) => {
               >
                 {props.isEdit ? "Cập nhật" : "Thêm"}
               </Button>
-              <Button type="primary" onClick={() => history.push("/staffs")}>
+              <Button type="primary" onClick={() => history.push("/salary")}>
                 Cancel
               </Button>
             </Form.Item>
@@ -131,4 +97,4 @@ const FormStaffs = (props) => {
     </>
   );
 };
-export default FormStaffs;
+export default FormLuong;

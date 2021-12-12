@@ -1,15 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
-import Customers from "../pages/Customers";
+import BillManagement from "../pages/BillManagement";
 import Products from "../pages/Products";
 import Staffs from "../pages/Staffs";
+import Salary from "../pages/Salary";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Manage from "./staffs-details/manage";
 import { NotFound, PrivateRoute } from "./common";
 import Handle from "./product-details/handle";
-import Catalog from "../pages/Catalog";
+import Manageluong from "./luong/manageluong";
 
 const Routes = () => {
   return (
@@ -21,10 +22,11 @@ const Routes = () => {
           <Route exact path="/" component={Dashboard} />
           <Route path="/staff/:id" component={Manage} exact />
           <Route path="/product/:id" component={Handle} exact />
-          <Route path="/customers" component={Customers} />
+          <Route path="/billmanagement" component={BillManagement} />
           <Route path="/staffs" component={Staffs} exact />
+          <Route path="/salary" component={Salary} exact />
+          <Route path="/salary/:id" component={Manageluong} exact />
           <Route path="/products" component={Products} exact />
-          <Route path="/catalog" component={Catalog} exact />
         </Switch>
       </PrivateRoute>
 

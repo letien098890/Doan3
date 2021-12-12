@@ -22,7 +22,7 @@ import { useHistory } from "react-router-dom";
 
 const ListStaffs = (props) => {
   const [Users, setStaffs] = useState([]);
-  const UsersCollectionRef = collection(db, "Users");
+  const UsersCollectionRef = collection(db, "users");
   const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {
     const unSub = onSnapshot(UsersCollectionRef, (data) => {
@@ -51,21 +51,30 @@ const ListStaffs = (props) => {
     return () => unSub();
   }, []);
   const deleteStaff = async (id) => {
-    const userDoc = doc(db, "staffs", id);
+    const userDoc = doc(db, "users", id);
     await deleteDoc(userDoc);
   };
   const columns = [
     { title: "STT", dataIndex: "stt" },
     // { title: "ID", dataIndex: "id" },
     {
-      title: "Tên",
-      render: (record) => <a href={`/staff/${record.id}`}>{record.name}</a>,
+      title: "Tên Tài Khoản",
+      render: (record) => <a href={`/staff/${record.id}`}>{record.FullName}</a>,
     },
-    { title: "Năm sinh", dataIndex: "yearofbirth" },
+    { title: "Năm sinh", dataIndex: "yearOfBirth" },
     { title: "Giới tính", dataIndex: "gioitinh" },
-    { title: "Phone Number", dataIndex: "SDT" },
-    { title: "Địa Chỉ", dataIndex: "diachi" },
-    { title: "Vai Trò", dataIndex: "vaitro" },
+    { title: "Phone Number", dataIndex: "sdt" },
+    {
+      title: "Dịa Chỉ",
+      render: (record) => <>{record.diachi}</>,
+    },
+    // {
+    //   title: "Tổng Tiền",
+    //   render: (record) => (
+    //     <> {parseInt(record.sogio ? record.sogio : 0 * 10000)} </>
+    //   ),
+    // },
+    { title: "Vai Trò", dataIndex: "chucvu" },
     {
       title: "",
       render: (record) => (

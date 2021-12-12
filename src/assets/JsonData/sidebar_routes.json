@@ -5,24 +5,19 @@
         "icon": "bx bx-category-alt"
     },
     {
-        "display_name": "Quản Lý Khách Hàng",
-        "route": "/customers",
-        "icon": "bx bx-user-pin"
-    },
-    {
-        "display_name": "Quản Lý Nhân Viên",
+        "display_name": "Quản Lý Tài Khoản",
         "route": "/staffs",
         "icon": "bx bx-user-pin"
     },
     {
         "display_name": "Quản Lý Món",
         "route": "/products",
-        "icon": "bx bx-package"
+        "icon": "bx bx-drink"
     },
     {
-        "display_name": "Bán Hàng Tại Quán",
-        "route": "/catalog",
-        "icon": "bx bx-cart"
+        "display_name": "Quản Lý Hoá Đơn",
+        "route": "/billmanagement",
+        "icon": "bx bx-wallet-alt"
     },
     {
         "display_name": "Biến Động",
@@ -31,8 +26,8 @@
     },
     {
         "display_name": "Quản Lý Lương",
-        "route": "/discount",
-        "icon": "bx bx-gift"
+        "route": "/salary",
+        "icon": "bx bx-money"
     },
     {
         "display_name": "Thống Kê Doanh Thu",

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import FormStaffs from "./form-staff";
+import FromLuong from "./form-luong";
 import { db } from "../../firebase-config";
 import {
   collection,
@@ -12,7 +12,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 
-const Manage = (props) => {
+const Manageluong = (props) => {
   // debugger;
   const param = props.match.params.id;
   const [infoStaff, setInfoStaff] = useState(null);
@@ -59,11 +59,11 @@ const Manage = (props) => {
   };
   return (
     <>
-      <FormStaffs isEdit={isEdit} infoStaff={infoStaff} onFinish={onFinish} />
+      <FromLuong isEdit={isEdit} infoStaff={infoStaff} onFinish={onFinish} />
     </>
   );
 };
-Manage.propTypes = {
+Manageluong.propTypes = {
   props: PropTypes.any,
 };
-export default Manage;
+export default Manageluong;
