@@ -55,7 +55,7 @@ const Manageluong = (props) => {
       await createStaff(values);
     }
 
-    history.push("/staffs");
+    history.push("/salary");
   };
   return (
     <>

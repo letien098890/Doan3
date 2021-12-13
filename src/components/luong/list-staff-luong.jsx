@@ -1,6 +1,8 @@
 import { Button, Table } from "antd";
 import {
   collection,
+  query,
+  where,
   getDocs,
   deleteDoc,
   doc,
@@ -13,9 +15,10 @@ import { useHistory } from "react-router-dom";
 const ListSalary = (props) => {
   const [Users, setStaffs] = useState([]);
   const UsersCollectionRef = collection(db, "users");
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const q = query(UsersCollectionRef, where("chucvu", "==", "Staff"));
+  console.log(q);
   useEffect(() => {
-    const unSub = onSnapshot(UsersCollectionRef, (data) => {
+    const unSub = onSnapshot(q, (data) => {
       console.log(data);
       setStaffs(
         data.docs.map((doc, index) => ({
