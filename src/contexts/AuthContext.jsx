@@ -53,6 +53,7 @@ export function AuthProvider({ children }) {
         if (chucvu === "Admin") {
           setCurrentUser({ id: user.uid, email: user.email });
         }
+        setLoading(false);
       }
       setLoading(false);
     });

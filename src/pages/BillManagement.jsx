@@ -1,10 +1,12 @@
-// import React, { useCallback, useState, useEffect, useRef } from "react";
-
-// import Helmet from "../components/product-details/Helmet";
-// import CheckBox from "../components/product-details/Checkbox";
 import React from "react";
+import ListBill from "../components/bill/listbill";
 function BillManagement() {
-  return <div>{}</div>;
+  return (
+    <div className="Staffs">
+      <ListBill />
+      {}
+    </div>
+  );
 }
 
 export default BillManagement;

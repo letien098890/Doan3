@@ -16,7 +16,6 @@ const ListSalary = (props) => {
   const [Users, setStaffs] = useState([]);
   const UsersCollectionRef = collection(db, "users");
   const q = query(UsersCollectionRef, where("chucvu", "==", "Staff"));
-  console.log(q);
   useEffect(() => {
     const unSub = onSnapshot(q, (data) => {
       console.log(data);
