@@ -4,10 +4,14 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import Item from "antd/lib/list/Item";
+import FormBill from "./formbill";
 
 const ListBill = (props) => {
   const [bills, setBills] = useState([]);
+  const [inforProduct, setInforProduct] = useState([]);
   const billsCollectionRef = collection(db, "Bill");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     let data1 = [];
@@ -16,6 +20,7 @@ const ListBill = (props) => {
         let a = doc.data();
         console.log(a);
         data1?.push({
+          id: doc?.id,
           stt: index + 1,
           name: a?.name,
           datetime: a.hasOwnProperty("datetime")
@@ -25,7 +30,7 @@ const ListBill = (props) => {
           dc: a?.dc,
           CartQty: a?.CartQty,
           CartPrice: a?.CartPrice,
-          products: a.hasOwnProperty("products") ? a?.products : [],
+          product: a.hasOwnProperty("product") ? a?.product : [],
         });
       });
       if (data1) {
@@ -34,11 +39,19 @@ const ListBill = (props) => {
     });
     return () => unSub();
   }, []);
+  const showChiTiet = (e, id) => {
+    // e.preventDefault();
+    const currentProduct = bills.find((item) => item.id === id);
+    setInforProduct(currentProduct);
+    setIsModalVisible(true);
+    debugger;
+  };
+
   const columns = [
     { title: "STT", dataIndex: "stt" },
     {
       title: "Tên Khách Hàng",
-      render: (record) => <a href={`/bill/${record.id}`}>{record.name}</a>,
+      render: (record) => <>{record.name}</>,
     },
     {
       title: "Ngày Và Giờ",
@@ -60,13 +73,32 @@ const ListBill = (props) => {
     {
       title: "Sản Phẩm",
       render: (record) => (
-        <> {record.products.length > 0 && record?.products?.join(",")} </>
+        <>
+          {" "}
+          {record.product?.length > 0 &&
+            record?.product?.map((item) => item.name)?.join(",")}{" "}
+        </>
+      ),
+    },
+    {
+      title: "",
+      render: (record) => (
+        <Button type="primary" onClick={(e) => showChiTiet(e, record.id)}>
+          In Hoá Đơn
+        </Button>
       ),
     },
   ];
   let history = useHistory();
   return (
-    <>{bills.length > 0 && <Table dataSource={bills} columns={columns} />}</>
+    <>
+      {bills.length > 0 && <Table dataSource={bills} columns={columns} />}{" "}
+      <FormBill
+        setIsModalVisible={setIsModalVisible}
+        isModalVisible={isModalVisible}
+        inforProduct={inforProduct}
+      />
+    </>
   );
   // console.log(bills);
   // return <>{bills.length > 0 ? bills[0].name : null}</>;

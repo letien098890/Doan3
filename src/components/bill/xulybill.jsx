@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import FromLuong from "./form-luong";
+import FormBill from "./formbill";
 import { db } from "../../firebase-config";
 import {
   collection,
@@ -12,58 +12,58 @@ import {
   addDoc,
 } from "firebase/firestore";
 
-const Manageluong = (props) => {
+const XulyBill = (props) => {
   // debugger;
   const param = props.match.params.id;
-  const [infoStaff, setInfoStaff] = useState(null);
+  const [bills, setBills] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  const UsersCollectionRef = collection(db, "users");
+  const billsCollectionRef = collection(db, "Bill");
   const history = useHistory();
 
   useEffect(() => {
     if (param !== "new") {
       //TODO
-      const getStaffs = async () => {
-        const data = await getDocs(UsersCollectionRef);
+      const getBills = async () => {
+        const data = await getDocs(billsCollectionRef);
         const dataInit = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        setInfoStaff(dataInit.find((item) => item.id === param));
+        setBills(dataInit.find((item) => item.id === param));
         setIsEdit(true);
       };
 
-      getStaffs();
-      //setInfoStaff
+      getBills();
+      //setbills
     }
   }, [props.match.params.id]);
 
-  const updateStaff = async (values) => {
-    await updateDoc(doc(db, "users", infoStaff.id), values);
+  const updatebill = async (values) => {
+    await updateDoc(doc(db, "Bill", bills.id), values);
   };
 
-  const createStaff = async (values) => {
-    await addDoc(UsersCollectionRef, values);
-  };
+  // const createStaff = async (values) => {
+  //   await addDoc(billsCollectionRef, values);
+  // };
 
   const onFinish = async (values) => {
     // debugger;
     if (isEdit) {
-      await updateStaff(values);
+      await updatebill(values);
     } else {
-      // create
-      await createStaff(values);
+      // // create
+      // await createStaff(values);
     }
 
-    history.push("/salary");
+    history.push("/bill");
   };
   return (
     <>
-      <FromLuong isEdit={isEdit} infoStaff={infoStaff} onFinish={onFinish} />
+      <FormBill isEdit={isEdit} bills={bills} onFinish={onFinish} />
     </>
   );
 };
-Manageluong.propTypes = {
+XulyBill.propTypes = {
   props: PropTypes.any,
 };
-export default Manageluong;
+export default XulyBill;
