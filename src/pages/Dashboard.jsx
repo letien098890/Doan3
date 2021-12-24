@@ -14,6 +14,8 @@ import Badge from "../components/badge/Badge";
 
 import statusCards from "../assets/JsonData/status-card-data.json";
 
+import ListSalary1 from "../components/luong/list-staff-luong1";
+import ListBill1 from "../components/bill/listbill1";
 const chartOptions = {
   series: [
     {
@@ -89,67 +91,67 @@ const renderCusomerBody = (item, index) => (
   </tr>
 );
 
-const latestOrders = {
-  header: ["order id", "user", "total price", "date", "status"],
-  body: [
-    {
-      id: "#OD1711",
-      user: "john doe",
-      date: "17 Jun 2021",
-      price: "$900",
-      status: "shipping",
-    },
-    {
-      id: "#OD1712",
-      user: "frank iva",
-      date: "1 Jun 2021",
-      price: "$400",
-      status: "paid",
-    },
-    {
-      id: "#OD1713",
-      user: "anthony baker",
-      date: "27 Jun 2021",
-      price: "$200",
-      status: "pending",
-    },
-    {
-      id: "#OD1712",
-      user: "frank iva",
-      date: "1 Jun 2021",
-      price: "$400",
-      status: "paid",
-    },
-    {
-      id: "#OD1713",
-      user: "anthony baker",
-      date: "27 Jun 2021",
-      price: "$200",
-      status: "refund",
-    },
-  ],
-};
+// const latestOrders = {
+//   header: ["order id", "user", "total price", "date", "status"],
+//   body: [
+//     {
+//       id: "#OD1711",
+//       user: "john doe",
+//       date: "17 Jun 2021",
+//       price: "$900",
+//       status: "shipping",
+//     },
+//     {
+//       id: "#OD1712",
+//       user: "frank iva",
+//       date: "1 Jun 2021",
+//       price: "$400",
+//       status: "paid",
+//     },
+//     {
+//       id: "#OD1713",
+//       user: "anthony baker",
+//       date: "27 Jun 2021",
+//       price: "$200",
+//       status: "pending",
+//     },
+//     {
+//       id: "#OD1712",
+//       user: "frank iva",
+//       date: "1 Jun 2021",
+//       price: "$400",
+//       status: "paid",
+//     },
+//     {
+//       id: "#OD1713",
+//       user: "anthony baker",
+//       date: "27 Jun 2021",
+//       price: "$200",
+//       status: "refund",
+//     },
+//   ],
+// };
 
-const orderStatus = {
-  shipping: "primary",
-  pending: "warning",
-  paid: "success",
-  refund: "danger",
-};
+// const orderStatus = {
+//   shipping: "primary",
+//   pending: "warning",
+//   paid: "success",
+//   refund: "danger",
+// };
 
-const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
+// const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
 
-const renderOrderBody = (item, index) => (
-  <tr key={index}>
-    <td>{item.id}</td>
-    <td>{item.user}</td>
-    <td>{item.price}</td>
-    <td>{item.date}</td>
-    <td>
-      <Badge type={orderStatus[item.status]} content={item.status} />
-    </td>
-  </tr>
-);
+// const renderOrderBody = (item, index) => (
+//   <tr key={index}>
+//     <td>{item.id}</td>
+//     <td>{item.user}</td>
+//     <td>{item.price}</td>
+//     <td>{item.date}</td>
+//     <td>
+//       <Badge type={orderStatus[item.status]} content={item.status} />
+//     </td>
+//   </tr>
+// );
 
 const Dashboard = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
@@ -196,17 +198,18 @@ const Dashboard = () => {
           <div className="card">
             <div className="card__header">
               <h3>Khách Hàng Tiêu Biểu</h3>
+              <ListSalary1 />
             </div>
-            <div className="card__body">
+            {/* <div className="card__body">
               <Table
                 headData={topCustomers.head}
                 renderHead={(item, index) => renderCusomerHead(item, index)}
                 bodyData={topCustomers.body}
                 renderBody={(item, index) => renderCusomerBody(item, index)}
               />
-            </div>
+            </div> */}
             <div className="card__footer">
-              <Link to="/">Xem tất cả</Link>
+              {/* <Link to="/">Xem tất cả</Link> */}
             </div>
           </div>
         </div>
@@ -214,17 +217,18 @@ const Dashboard = () => {
           <div className="card">
             <div className="card__header">
               <h3>Những khách order gần nhất</h3>
+              <ListBill1 />
             </div>
-            <div className="card__body">
+            {/* <div className="card__body">
               <Table
                 headData={latestOrders.header}
                 renderHead={(item, index) => renderOrderHead(item, index)}
                 bodyData={latestOrders.body}
                 renderBody={(item, index) => renderOrderBody(item, index)}
               />
-            </div>
+            </div> */}
             <div className="card__footer">
-              <Link to="/">Xem tất cả</Link>
+              {/* <Link to="/">Xem tất cả</Link> */}
             </div>
           </div>
         </div>

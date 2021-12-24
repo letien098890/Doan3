@@ -5,6 +5,7 @@ import BillManagement from "../pages/BillManagement";
 import Products from "../pages/Products";
 import Staffs from "../pages/Staffs";
 import Salary from "../pages/Salary";
+import Turnover from "../pages/Turnover";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Manage from "./staffs-details/manage";
@@ -27,6 +28,7 @@ const Routes = () => {
           <Route path="/salary" component={Salary} exact />
           <Route path="/salary/:id" component={Manageluong} exact />
           <Route path="/products" component={Products} exact />
+          <Route path="/turnover" component={Turnover} exact />
         </Switch>
       </PrivateRoute>
 

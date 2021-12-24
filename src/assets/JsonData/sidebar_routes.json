@@ -31,7 +31,7 @@
     },
     {
         "display_name": "Thống Kê Doanh Thu",
-        "route": "/inventory",
+        "route": "/turnover",
         "icon": "bx bx-store-alt"
     },
     {

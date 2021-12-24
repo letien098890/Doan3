@@ -39,6 +39,8 @@ const Manageluong = (props) => {
   }, [props.match.params.id]);
 
   const updateStaff = async (values) => {
+    debugger;
+    // console.log(values);
     await updateDoc(doc(db, "users", infoStaff.id), values);
   };
 
