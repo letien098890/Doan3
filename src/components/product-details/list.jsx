@@ -32,7 +32,11 @@ const ListProducts = (props) => {
       render: (record) => <a href={`/product/${record.id}`}>{record.name}</a>,
     },
     { title: "Loại", dataIndex: "loai" },
-    { title: "Giá", dataIndex: "gia" },
+    {
+      title: "Giá",
+      dataIndex: "gia",
+      // render: () => <>VNĐ</>,
+    },
     {
       title: "Hình Ảnh",
       dataIndex: "hinhanh",

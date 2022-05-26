@@ -46,7 +46,7 @@ const ListSalary = (props) => {
     },
     {
       title: "Luong Co Ban",
-      render: (record) => <>{record.luongcoban ? record.luongcoban : 0}</>,
+      render: (record) => <>{record.luongcoban ? record.luongcoban : 0} VNĐ</>,
     },
     { title: "Vai Trò", dataIndex: "chucvu" },
     {
@@ -55,7 +55,9 @@ const ListSalary = (props) => {
     },
     {
       title: "Tổng Tiền",
-      render: (record) => <> {parseInt(record.sogio * record.luongcoban)} </>,
+      render: (record) => (
+        <> {parseInt(record.sogio * record.luongcoban)} VNĐ</>
+      ),
     },
   ];
   {

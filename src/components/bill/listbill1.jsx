@@ -32,8 +32,11 @@ const ListBill1 = (props) => {
           stt: index + 1,
           name: a?.name,
           datetime: a.hasOwnProperty("datetime")
-            ? CovertDate(a?.datetime.toString())
+            ? moment(a?.datetime?.toDate()).format("MM DD YYYY")
             : "",
+          // datetime: a.hasOwnProperty("datetime")
+          //   ? CovertDate(a?.datetime.toString())
+          //   : "",
           phone: a?.phone,
           dc: a?.dc,
           CartQty: a?.CartQty,
@@ -47,21 +50,22 @@ const ListBill1 = (props) => {
         setBills(data1);
       }
     });
+
     return () => unSub();
   }, []);
   const CovertDate = (date) => {
     if (date.toString().includes("Timestamp")) {
+      console.log("a", a);
       return moment(a?.datetime?.toDate()).format("MM/DD/YYYY");
     } else {
       return moment(a?.datetime).format("MM/DD/YYYY");
     }
   };
-
   const updatetrangthai = async (a1) => {
     debugger;
     console.log("a1", a1);
     a1.trangthai = value;
-    a1.datetime = new Date().toString();
+    a1.datetime = new Date();
     debugger;
     await updateDoc(doc(db, "Bill", a1.id), a1);
     window.location.pathname = "/";
@@ -81,12 +85,12 @@ const ListBill1 = (props) => {
     },
     {
       title: "Ngày Và Giờ",
-      render: (record) => <>{record.datetime}</>,
+      render: (record) => <>{record?.datetime}</>,
     },
-    // {
-    //   title: "Số Điện Thoại",
-    //   render: (record) => <>{record.phone}</>,
-    // },
+    {
+      title: "Số Điện Thoại",
+      render: (record) => <>{record.phone}</>,
+    },
     // { title: "Địa Chỉ", dataIndex: "dc" },
     {
       title: "Tổng Món",
@@ -94,7 +98,7 @@ const ListBill1 = (props) => {
     },
     {
       title: "Tổng Tiền",
-      render: (record) => <> {parseInt(record.CartPrice)} </>,
+      render: (record) => <> {parseInt(record.CartPrice)} VNĐ</>,
     },
     {
       title: "Trạng Thái",
