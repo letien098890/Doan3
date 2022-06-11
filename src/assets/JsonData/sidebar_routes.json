@@ -20,7 +20,7 @@
         "icon": "bx bx-wallet-alt"
     },
     {
-        "display_name": "Quản Lý Lương",
+        "display_name": "Quản Lý Lương/Ca",
         "route": "/salary",
         "icon": "bx bx-money"
     },

@@ -34,7 +34,7 @@ const FormLuong = (props) => {
         onFinish={props.onFinish}
       >
         <Row>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item
               name={"FullName"}
               label="Name"
@@ -43,7 +43,7 @@ const FormLuong = (props) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item
               name={"sogio"}
               label="Số Giờ"
@@ -55,9 +55,7 @@ const FormLuong = (props) => {
               <Input />
             </Form.Item>
           </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item
               name={"luongcoban"}
               label="Lương Căn Bản"
@@ -66,10 +64,30 @@ const FormLuong = (props) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+        </Row>
+        <Row>
+          <Col span={8}>
             <Form.Item
               name={"chucvu"}
               label="Vai Trò"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item
+              name={"ca"}
+              label="Ca Làm Việc"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item
+              name={"thu"}
+              label="Lịch Trực"
               rules={[{ required: true }]}
             >
               <Input />

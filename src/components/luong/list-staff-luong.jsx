@@ -31,9 +31,10 @@ const ListSalary = (props) => {
   }, []);
 
   const columns = [
-    { title: "STT", dataIndex: "stt" },
+    { title: "STT", width: 50, dataIndex: "stt" },
     {
       title: "Tên Nhân Viên",
+      width: 150,
       render: (record) => (
         <a href={`/salary/${record.id}`}>{record.FullName}</a>
       ),
@@ -43,22 +44,32 @@ const ListSalary = (props) => {
     // { title: "Phone Number", dataIndex: "sdt" },
     {
       title: "Số Giờ",
+      width: 30,
       render: (record) => <>{record.sogio}</>,
     },
     {
       title: "Luong Co Ban",
+      width: 170,
+
       render: (record) => <>{record.luongcoban ? record.luongcoban : 0} VNĐ</>,
     },
-    { title: "Vai Trò", dataIndex: "chucvu" },
-    {
-      title: "",
-      render: (record) => <></>,
-    },
+    { title: "Vai Trò", width: 50, dataIndex: "chucvu" },
     {
       title: "Tổng Tiền",
+      width: 100,
       render: (record) => (
         <> {parseInt(record.sogio * record.luongcoban)} VNĐ</>
       ),
+    },
+    {
+      title: "Ca Làm Việc (1: 7h-12 và 2: 13h-17h)",
+      width: 100,
+      dataIndex: "ca",
+    },
+    {
+      title: "Lịch Trực (Thứ)",
+      width: 200,
+      dataIndex: "thu",
     },
   ];
   {
