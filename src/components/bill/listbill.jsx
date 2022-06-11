@@ -69,7 +69,7 @@ const ListBill = (props) => {
     {
       title: "Tên Khách Hàng",
       width: 100,
-      render: (record) => <>{record.name}</>,
+      render: (record) => <>{record?.name ? record.name : "Chưa cập nhật"}</>,
     },
     {
       title: "Ngày Và Giờ",

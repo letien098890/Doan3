@@ -12,6 +12,7 @@ import Manage from "./staffs-details/manage";
 import { NotFound, PrivateRoute } from "./common";
 import Handle from "./product-details/handle";
 import Manageluong from "./luong/manageluong";
+import QRtichluy from "../pages/QRtichluy";
 
 const Routes = () => {
   return (
@@ -29,6 +30,7 @@ const Routes = () => {
           <Route path="/salary/:id" component={Manageluong} exact />
           <Route path="/products" component={Products} exact />
           <Route path="/turnover" component={Turnover} exact />
+          <Route path="/qrtichluy" component={QRtichluy} exact />
         </Switch>
       </PrivateRoute>
 

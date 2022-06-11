@@ -1,13 +1,13 @@
 import React from "react";
 import ListSalary from "../components/luong/list-staff-luong";
-function Salary() {
+function QRtichluy() {
   return (
     <div className="Staffs">
       <ListSalary />
-      {/* <h1>hello</h1> */}
+      {/* <h1>Hello world</h1> */}
       {}
     </div>
   );
 }
 
-export default Salary;
+export default QRtichluy;

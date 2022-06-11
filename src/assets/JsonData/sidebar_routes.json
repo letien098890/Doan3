@@ -35,6 +35,11 @@
         "icon": "bx bx-store-alt"
     },
     {
+        "display_name": "Quản lý khuyến mãi",
+        "route": "/qrtichluy",
+        "icon": "bx bx-category-alt"
+    },
+    {
         "display_name": "Cài Đặt",
         "route": "/settings",
         "icon": "bx bx-cog"
