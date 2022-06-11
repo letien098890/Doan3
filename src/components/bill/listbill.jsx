@@ -26,6 +26,7 @@ const ListBill = (props) => {
           datetime: a.hasOwnProperty("datetime")
             ? moment(a?.datetime?.toDate()).format("MM DD YYYY")
             : "",
+          // datetime: a.datetime,
           phone: a?.phone,
           dc: a?.dc,
           CartQty: a?.CartQty,
