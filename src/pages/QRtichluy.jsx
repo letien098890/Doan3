@@ -1,9 +1,9 @@
 import React from "react";
-import ListSalary from "../components/luong/list-staff-luong";
+import QRlist from "../components/QRtichluy/QRlist";
 function QRtichluy() {
   return (
     <div className="Staffs">
-      <ListSalary />
+      <QRlist />
       {/* <h1>Hello world</h1> */}
       {}
     </div>

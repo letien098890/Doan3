@@ -12,60 +12,42 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
 import { useHistory } from "react-router-dom";
 
-const ListSalary = (props) => {
+const QRlist = (props) => {
   const [Users, setStaffs] = useState([]);
-  const UsersCollectionRef = collection(db, "users");
-  const q = query(UsersCollectionRef, where("chucvu", "==", "Staff"));
+  const UsersCollectionRef = collection(db, "QRCode");
+  //   const q = query(UsersCollectionRef, where("chucvu", "==", "Staff"));
   useEffect(() => {
-    const unSub = onSnapshot(q, (data) => {
+    const unSub = onSnapshot(UsersCollectionRef, (data) => {
       console.log(data);
       setStaffs(
         data.docs.map((doc, index) => ({
           ...doc.data(),
           id: doc.id,
-          stt: index + 1,
+          //   stt: index + 1,
         }))
       );
     });
     return () => unSub();
   }, []);
-
   const columns = [
-    { title: "STT", dataIndex: "stt" },
+    { title: "Id QR code", dataIndex: "id" },
     {
-      title: "Tên Nhân Viên",
-      render: (record) => (
-        <a href={`/salary/${record.id}`}>{record.FullName}</a>
-      ),
+      title: "Thời gian tạo QR",
+      dataIndex: "datetime",
+      //   render: (record) => (
+      //     <a href={`/salary/${record.id}`}>{record.FullName}</a>
+      //   ),
     },
-    // { title: "Năm sinh", dataIndex: "yearOfBirth" },
+    { title: "Tên Khách Hàng", dataIndex: "name" },
     // { title: "Giới tính", dataIndex: "gioitinh" },
-    // { title: "Phone Number", dataIndex: "sdt" },
-    {
-      title: "Số Giờ",
-      render: (record) => <>{record.sogio}</>,
-    },
-    {
-      title: "Luong Co Ban",
-      render: (record) => <>{record.luongcoban ? record.luongcoban : 0} VNĐ</>,
-    },
-    { title: "Vai Trò", dataIndex: "chucvu" },
-    {
-      title: "",
-      render: (record) => <></>,
-    },
-    {
-      title: "Tổng Tiền",
-      render: (record) => (
-        <> {parseInt(record.sogio * record.luongcoban)} VNĐ</>
-      ),
-    },
+    { title: "Số Điện Thoại Khách", dataIndex: "phone" },
+    { title: "Ly đã thanh toán", dataIndex: "quantity" },
+    { title: "Ly đã khuyến mãi", dataIndex: "lyKhuyenMai" },
   ];
   {
     /* <span>delete {record.id}</span> */
   }
   let history = useHistory();
-
   return (
     <>
       {/* <Button
@@ -81,4 +63,4 @@ const ListSalary = (props) => {
     </>
   );
 };
-export default ListSalary;
+export default QRlist;

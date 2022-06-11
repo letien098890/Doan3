@@ -17,11 +17,11 @@ import statusCards from "../assets/JsonData/status-card-data.json";
 const chartOptions = {
   series: [
     {
-      name: "Khách Online",
+      name: "Món Nước",
       data: [40, 70, 20, 90, 36, 80, 30, 91, 60],
     },
     {
-      name: "Khánh tại quán",
+      name: "Món Ăn",
       data: [40, 30, 70, 80, 40, 16, 40, 20, 51, 10],
     },
   ],
@@ -48,52 +48,14 @@ const chartOptions = {
   },
 };
 
-const topCustomers = {
-  head: ["Khách", "Tổng đơn", "Tổng tiền đã chi"],
-  body: [
-    {
-      username: "john doe",
-      order: "490",
-      price: "$15,870",
-    },
-    {
-      username: "frank iva",
-      order: "250",
-      price: "$12,251",
-    },
-    {
-      username: "anthony baker",
-      order: "120",
-      price: "$10,840",
-    },
-    {
-      username: "frank iva",
-      order: "110",
-      price: "$9,251",
-    },
-    {
-      username: "anthony baker",
-      order: "80",
-      price: "$8,840",
-    },
-  ],
-};
-
-const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
-
-const renderCusomerBody = (item, index) => (
-  <tr key={index}>
-    <td>{item.username}</td>
-    <td>{item.order}</td>
-    <td>{item.price}</td>
-  </tr>
-);
 const Dashboard = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
 
   return (
     <div>
-      <h2 className="page-header">Trang Chủ</h2>
+      <h1 className="page-header">
+        Chào Mừng Bạn Đến Với Trang Quản Trị Viên Của Lamon Coffee
+      </h1>
       <div className="row">
         <div className="col-6">
           <div className="row">

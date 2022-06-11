@@ -5,12 +5,12 @@
         "icon": "bx bx-category-alt"
     },
     {
-        "display_name": "Quản Lý Tài Khoản",
+        "display_name": "Quản Lý Nhân Viên",
         "route": "/staffs",
         "icon": "bx bx-user-pin"
     },
     {
-        "display_name": "Quản Lý Món",
+        "display_name": "Quản Lý Sản Phẩm",
         "route": "/products",
         "icon": "bx bx-drink"
     },
@@ -20,19 +20,9 @@
         "icon": "bx bx-wallet-alt"
     },
     {
-        "display_name": "Biến Động",
-        "route": "/analytics",
-        "icon": "bx bx-bar-chart-alt"
-    },
-    {
         "display_name": "Quản Lý Lương",
         "route": "/salary",
         "icon": "bx bx-money"
-    },
-    {
-        "display_name": "Thống Kê Doanh Thu",
-        "route": "/turnover",
-        "icon": "bx bx-store-alt"
     },
     {
         "display_name": "Quản lý khuyến mãi",
@@ -40,8 +30,8 @@
         "icon": "bx bx-category-alt"
     },
     {
-        "display_name": "Cài Đặt",
-        "route": "/settings",
-        "icon": "bx bx-cog"
+        "display_name": "Thống Kê Doanh Thu",
+        "route": "/turnover",
+        "icon": "bx bx-bar-chart-alt"
     }
 ]

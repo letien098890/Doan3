@@ -79,7 +79,7 @@ const ListBill = (props) => {
     {
       title: "Số Điện Thoại",
       width: 70,
-      render: (record) => <>{record.phone}</>,
+      render: (record) => <>{record?.phone ? record.phone : "Chưa cập nhật"}</>,
     },
     // { title: "Địa Chỉ", dataIndex: "dc" },
     {

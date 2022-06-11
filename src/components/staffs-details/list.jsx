@@ -61,7 +61,13 @@ const ListStaffs = (props) => {
       title: "Tên Tài Khoản",
       render: (record) => <a href={`/staff/${record.id}`}>{record.FullName}</a>,
     },
-    { title: "Năm sinh", dataIndex: "yearOfBirth" },
+    {
+      title: "Năm sinh",
+      render: (record) => (
+        <>{record?.yearOfBirth ? record.yearOfBirth : "Chưa cập nhật"}</>
+      ),
+      // dataIndex: "yearOfBirth"
+    },
     { title: "Giới tính", dataIndex: "gioitinh" },
     { title: "Phone Number", dataIndex: "sdt" },
     {
