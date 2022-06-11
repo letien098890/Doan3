@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import { db } from "../../../firebase-config";
 import "../register/AppRegister.css";
 import "../register/custom.css";
+import { doc, setDoc } from "firebase/firestore";
+
 // const Register = () => {
 //   const { register } = useAuth();
 
@@ -77,7 +79,7 @@ import "../register/custom.css";
 // };
 const Register = () => {
   const history = useHistory();
-  const { register } = useAuth();
+  const { register, currentUser } = useAuth();
 
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -85,47 +87,41 @@ const Register = () => {
   const [gioitinh, setGioitinh] = useState("");
   const [diachi, setDiaChi] = useState("");
   const [password, setPassword] = useState("");
-  const [chucvu, setChucvu] = useState("");
+  // const [chucvu, setChucvu] = useState("");
 
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     // console.log(fullName, email, password);
-    register(email, password)
-      .then((credentials) => {
-        console.log(credentials);
-        db.collection("users")
-          .doc(credentials.user.uid)
-          .set({
-            FullName: fullName,
-            sdt: sdt,
-            gioitinh: gioitinh,
-            diachi: diachi,
-            Email: email,
-            Password: password,
-            chucvu: chucvu,
-          })
-          .then(() => {
-            setSuccessMsg("Đăng ký thành công!");
-            setFullname("");
-            setEmail("");
-            setPassword("");
-            setChucvu("");
-            setErrorMsg("");
-            setTimeout(() => {
-              setSuccessMsg("");
-              history.push("/");
-            }, 1000);
-          })
-          .catch((error) => setErrorMsg(error.message));
-      })
-      .catch((error) => {
-        setErrorMsg(error.message);
+    const temp = await register(email, password);
+    try {
+      console.log("temp1", temp);
+      await setDoc(doc(db, "users", temp.user.uid), {
+        FullName: fullName,
+        sdt: sdt,
+        gioitinh: gioitinh,
+        diachi: diachi,
+        Email: email,
+        Password: password,
+        chucvu: "Admin",
       });
-  };
 
+      setSuccessMsg("Đăng ký thành công!");
+      setFullname("");
+      setEmail("");
+      setPassword("");
+      setChucvu("");
+      setErrorMsg("");
+
+      setSuccessMsg("");
+    } catch (error) {
+      setErrorMsg(error.message);
+    }
+  };
+  if (currentUser) {
+    history.push("/");
+  }
   return (
     <div className="container-signup">
       {successMsg && (

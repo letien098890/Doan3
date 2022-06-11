@@ -13,6 +13,18 @@ const ListBill = (props) => {
   const billsCollectionRef = collection(db, "Bill");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  function formatDate(date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+
   useEffect(() => {
     let data1 = [];
     const unSub = onSnapshot(billsCollectionRef, (data) => {
@@ -23,9 +35,13 @@ const ListBill = (props) => {
           id: doc?.id,
           stt: index + 1,
           name: a?.name,
-          datetime: a.hasOwnProperty("datetime")
-            ? moment(a?.datetime?.toDate()).format("MM DD YYYY")
-            : "",
+          datetime:
+            a.hasOwnProperty("datetime") && a?.datetime !== null
+              ? formatDate(a?.datetime)
+              : "",
+          // datetime: a.hasOwnProperty("datetime")
+          //   ? moment(a?.datetime?.toDate()).format("MM DD YYYY")
+          //   : "",
           // datetime: a.datetime,
           phone: a?.phone,
           dc: a?.dc,
@@ -49,30 +65,38 @@ const ListBill = (props) => {
   };
 
   const columns = [
-    { title: "STT", dataIndex: "stt" },
+    { title: "STT", dataIndex: "stt", width: 50 },
     {
       title: "Tên Khách Hàng",
+      width: 100,
       render: (record) => <>{record.name}</>,
     },
     {
       title: "Ngày Và Giờ",
+      width: 70,
       render: (record) => <>{record.datetime}</>,
     },
     {
       title: "Số Điện Thoại",
+      width: 70,
       render: (record) => <>{record.phone}</>,
     },
-    { title: "Địa Chỉ", dataIndex: "dc" },
+    // { title: "Địa Chỉ", dataIndex: "dc" },
     {
       title: "Tổng Món",
-      render: (record) => <>{record.CartQty}</>,
+      width: 50,
+      render: (record) => (
+        <> {record.product?.length > 0 && record?.product[0]?.quantity}</>
+      ),
     },
     {
       title: "Tổng Tiền",
+      width: 100,
       render: (record) => <> {parseInt(record.CartPrice)} </>,
     },
     {
       title: "Sản Phẩm",
+      width: 100,
       render: (record) => (
         <>
           {" "}
@@ -81,14 +105,14 @@ const ListBill = (props) => {
         </>
       ),
     },
-    {
-      title: "",
-      render: (record) => (
-        <Button type="primary" onClick={(e) => showChiTiet(e, record.id)}>
-          In Hoá Đơn
-        </Button>
-      ),
-    },
+    // {
+    //   title: "",
+    //   render: (record) => (
+    //     <Button type="primary" onClick={(e) => showChiTiet(e, record.id)}>
+    //       In Hoá Đơn
+    //     </Button>
+    //   ),
+    // },
   ];
   let history = useHistory();
   return (
