@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Table, Form, Row, Col, Input } from "antd";
 import {
   collection,
   query,
@@ -12,13 +12,39 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
 import { useHistory } from "react-router-dom";
 
+const layout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 24 },
+  },
+};
 const ListSalary = (props) => {
+  const [total, setTotal] = useState(0);
   const [Users, setStaffs] = useState([]);
   const UsersCollectionRef = collection(db, "users");
   const q = query(UsersCollectionRef, where("chucvu", "==", "Staff"));
   useEffect(() => {
+    let data1 = [];
     const unSub = onSnapshot(q, (data) => {
       console.log(data);
+      data.docs.map((doc, index) => {
+        let a = doc.data();
+        console.log("a", a);
+
+        data1?.push({
+          id: doc?.id,
+          sogio: a?.sogio,
+          luongcoban: a?.luongcoban,
+        });
+      });
+      if (data1) {
+        setTotal(data1.reduce((a, b) => a + +(b.sogio * b.luongcoban), 0));
+      }
+
       setStaffs(
         data.docs.map((doc, index) => ({
           ...doc.data(),
@@ -58,7 +84,13 @@ const ListSalary = (props) => {
       title: "Tổng Tiền",
       width: 100,
       render: (record) => (
-        <> {parseInt(record.sogio * record.luongcoban)} VNĐ</>
+        <>
+          {" "}
+          {parseInt(record.sogio * record.luongcoban).toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          })}
+        </>
       ),
     },
     {
@@ -71,6 +103,11 @@ const ListSalary = (props) => {
       width: 200,
       dataIndex: "thu",
     },
+    {
+      title: "Xe( Cửa Hàng Con) Số:",
+      width: 100,
+      dataIndex: "xe",
+    },
   ];
   {
     /* <span>delete {record.id}</span> */
@@ -79,6 +116,21 @@ const ListSalary = (props) => {
 
   return (
     <>
+      <Form {...layout}>
+        <Row>
+          <Col span={24}>
+            <Form.Item label="Tổng Tiền Lương Chi Nhân Viên:">
+              <br></br>
+              <h1 style={{ color: "red" }}>
+                {total.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+              </h1>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
       {/* <Button
         onClick={() => history.push("/staff/new")}
         type="primary"

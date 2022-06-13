@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Table, Form, Row, Col, Input } from "antd";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
@@ -7,8 +7,23 @@ import moment from "moment";
 import Item from "antd/lib/list/Item";
 import FormBill from "./formbill";
 
+const layout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 24 },
+  },
+};
+
 const ListBill = (props) => {
+  const [form] = Form.useForm();
+
   const [bills, setBills] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [total1, setTotal1] = useState(0);
   const [inforProduct, setInforProduct] = useState([]);
   const billsCollectionRef = collection(db, "Bill");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -47,15 +62,20 @@ const ListBill = (props) => {
           dc: a?.dc,
           CartQty: a?.CartQty,
           CartPrice: a?.CartPrice,
+          quantity: a?.quantity,
           product: a.hasOwnProperty("product") ? a?.product : [],
         });
       });
       if (data1) {
         setBills(data1);
+        setTotal(data1.reduce((a, b) => a + +b.CartPrice, 0));
+        setTotal1(data1.reduce((x, y) => x + +y.quantity, 0));
       }
     });
     return () => unSub();
   }, []);
+  console.log("to to`", total);
+  console.log("to to`", total1);
   const showChiTiet = (e, id) => {
     // e.preventDefault();
     const currentProduct = bills.find((item) => item.id === id);
@@ -92,7 +112,15 @@ const ListBill = (props) => {
     {
       title: "Tổng Tiền",
       width: 100,
-      render: (record) => <> {parseInt(record.CartPrice)} </>,
+      render: (record) => (
+        <>
+          {" "}
+          {record.CartPrice.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          })}{" "}
+        </>
+      ),
     },
     {
       title: "Sản Phẩm",
@@ -117,6 +145,27 @@ const ListBill = (props) => {
   let history = useHistory();
   return (
     <>
+      <Form {...layout}>
+        <Row>
+          <Col span={12}>
+            <Form.Item label="Tổng Tiền Các Bill">
+              <br></br>
+              <h1 style={{ color: "red" }}>
+                {total.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+              </h1>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Tổng Số Lượng Sản Phẩm Bán Ra:">
+              <br></br>
+              <h1 style={{ color: "red" }}>{total1}</h1>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
       {bills.length > 0 && <Table dataSource={bills} columns={columns} />}{" "}
       <FormBill
         setIsModalVisible={setIsModalVisible}

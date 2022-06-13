@@ -94,6 +94,17 @@ const FormLuong = (props) => {
             </Form.Item>
           </Col>
         </Row>
+        <Row>
+          <Col span={24}>
+            <Form.Item
+              name={"xe"}
+              label="Xe (Cửa Hàng Con) Số:"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
 
         <Row>
           <Col span={24} style={{ textAlign: "center" }}>
