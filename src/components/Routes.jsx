@@ -13,6 +13,7 @@ import { NotFound, PrivateRoute } from "./common";
 import Handle from "./product-details/handle";
 import Manageluong from "./luong/manageluong";
 import QRtichluy from "../pages/QRtichluy";
+import xulydt from "./doanhthu/xulydt";
 
 const Routes = () => {
   return (
@@ -24,6 +25,7 @@ const Routes = () => {
           <Route exact path="/" component={Dashboard} />
           <Route path="/staff/:id" component={Manage} exact />
           <Route path="/product/:id" component={Handle} exact />
+          <Route path="/turnover/:id" component={xulydt} exact />
           <Route path="/billmanagement" component={BillManagement} />
           <Route path="/staffs" component={Staffs} exact />
           <Route path="/salary" component={Salary} exact />

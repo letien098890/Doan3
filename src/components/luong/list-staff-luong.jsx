@@ -39,6 +39,7 @@ const ListSalary = (props) => {
           id: doc?.id,
           sogio: a?.sogio,
           luongcoban: a?.luongcoban,
+          FullName: a?.FullName,
         });
       });
       if (data1) {
@@ -60,10 +61,12 @@ const ListSalary = (props) => {
     { title: "STT", width: 50, dataIndex: "stt" },
     {
       title: "Tên Nhân Viên",
+      dataIndex: "FullName",
       width: 150,
-      render: (record) => (
-        <a href={`/salary/${record.id}`}>{record.FullName}</a>
-      ),
+      sorter: (a, b) => a.FullName.localeCompare(b.FullName),
+      // render: (record) => (
+      //   <a href={`/salary/${record.id}`}>{record.FullName}</a>
+      // ),
     },
     // { title: "Năm sinh", dataIndex: "yearOfBirth" },
     // { title: "Giới tính", dataIndex: "gioitinh" },
@@ -74,10 +77,17 @@ const ListSalary = (props) => {
       render: (record) => <>{record.sogio}</>,
     },
     {
-      title: "Luong Co Ban",
+      title: "Lương Cơ Bản",
       width: 170,
 
-      render: (record) => <>{record.luongcoban ? record.luongcoban : 0} VNĐ</>,
+      render: (record) => (
+        <>
+          {parseInt(record.luongcoban).toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          })}
+        </>
+      ),
     },
     { title: "Vai Trò", width: 50, dataIndex: "chucvu" },
     {
