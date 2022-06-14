@@ -13,7 +13,8 @@ import Table from "../components/table/Table";
 import Badge from "../components/badge/Badge";
 
 import statusCards from "../assets/JsonData/status-card-data.json";
-
+import Show from "../components/bill/Show";
+import Show1 from "../components/luong/Show1";
 const chartOptions = {
   series: [
     {
@@ -52,47 +53,51 @@ const Dashboard = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
 
   return (
-    <div>
-      <h1 className="page-header">
-        Chào Mừng Bạn Đến Với Trang Quản Trị Viên Của Lamon Coffee
-      </h1>
-      <div className="row">
-        <div className="col-6">
-          <div className="row">
-            {statusCards.map((item, index) => (
-              <div className="col-6" key={index}>
-                <StatusCard
-                  icon={item.icon}
-                  count={item.count}
-                  title={item.title}
-                />
-              </div>
-            ))}
+    <>
+      <Show />
+      <Show1 />
+      <div>
+        <h1 className="page-header">
+          Chào Mừng Bạn Đến Với Trang Quản Trị Viên Của Lamon Coffee
+        </h1>
+        <div className="row">
+          <div className="col-6">
+            <div className="row">
+              {statusCards.map((item, index) => (
+                <div className="col-6" key={index}>
+                  <StatusCard
+                    icon={item.icon}
+                    count={item.count}
+                    title={item.title}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="col-6">
-          <div className="card full-height">
-            {/* chart */}
-            <Chart
-              options={
-                themeReducer === "theme-mode-dark"
-                  ? {
-                      ...chartOptions.options,
-                      theme: { mode: "dark" },
-                    }
-                  : {
-                      ...chartOptions.options,
-                      theme: { mode: "light" },
-                    }
-              }
-              series={chartOptions.series}
-              type="line"
-              height="100%"
-            />
+          <div className="col-6">
+            <div className="card full-height">
+              {/* chart */}
+              <Chart
+                options={
+                  themeReducer === "theme-mode-dark"
+                    ? {
+                        ...chartOptions.options,
+                        theme: { mode: "dark" },
+                      }
+                    : {
+                        ...chartOptions.options,
+                        theme: { mode: "light" },
+                      }
+                }
+                series={chartOptions.series}
+                type="line"
+                height="100%"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

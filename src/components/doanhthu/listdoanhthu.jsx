@@ -1,4 +1,4 @@
-import { Button, Table, Form, Row, Col, Input } from "antd";
+import { Button, Table, Form, Row, Col, Input, Tag } from "antd";
 import {
   collection,
   query,
@@ -19,7 +19,7 @@ const layout = {
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 24 },
+    sm: { span: 12 },
   },
 };
 
@@ -43,7 +43,12 @@ const Doanhthu = (props) => {
         });
       });
       if (data1) {
-        setTotal(data1.reduce((a, b) => a + +b.thu, 0));
+        // setTotal(
+        //   data1.reduce(
+        //     (a, c, d, e) => a.thu - c.Chiluong - d.Chisp - e.Chiphikhac,
+        //     0
+        //   )
+        // );
         // setTotal(data1.thu);
       }
 
@@ -118,15 +123,17 @@ const Doanhthu = (props) => {
     {
       title: "Tổng Doanh Thu",
       width: 100,
+
       render: (record) => (
         <>
-          {" "}
-          {parseInt(
-            record.thu - record.Chisp - record.Chiluong - record.Chiphikhac
-          ).toLocaleString("vi-VN", {
-            style: "currency",
-            currency: "VND",
-          })}
+          <h1 style={{ color: "red" }}>
+            {parseInt(
+              record.thu - record.Chisp - record.Chiluong - record.Chiphikhac
+            ).toLocaleString("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            })}
+          </h1>
         </>
       ),
     },
@@ -138,7 +145,7 @@ const Doanhthu = (props) => {
 
   return (
     <>
-      <Form {...layout}>
+      {/* <Form {...layout}>
         <Row>
           <Col span={24}>
             <Form.Item label="Tổng Doanh Thu:">
@@ -152,8 +159,16 @@ const Doanhthu = (props) => {
             </Form.Item>
           </Col>
         </Row>
-      </Form>
-      {Users && <Table dataSource={Users} columns={columns} />}
+      </Form> */}
+      {Users && (
+        <Table
+          dataSource={Users}
+          columns={columns}
+          rowClassName={(record, index) =>
+            record.amount > 50 ? "red" : "green"
+          }
+        />
+      )}
     </>
   );
 };

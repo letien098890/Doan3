@@ -19,10 +19,10 @@ const layout = {
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 24 },
+    sm: { span: 12 },
   },
 };
-const ListSalary = (props) => {
+const Show1 = (props) => {
   const [total, setTotal] = useState(0);
   const [Users, setStaffs] = useState([]);
   const UsersCollectionRef = collection(db, "users");
@@ -39,6 +39,7 @@ const ListSalary = (props) => {
           id: doc?.id,
           sogio: a?.sogio,
           luongcoban: a?.luongcoban,
+          FullName: a?.FullName,
         });
       });
       if (data1) {
@@ -60,10 +61,12 @@ const ListSalary = (props) => {
     { title: "STT", width: 50, dataIndex: "stt" },
     {
       title: "Tên Nhân Viên",
+      dataIndex: "FullName",
       width: 150,
-      render: (record) => (
-        <a href={`/salary/${record.id}`}>{record.FullName}</a>
-      ),
+      sorter: (a, b) => a.FullName.localeCompare(b.FullName),
+      // render: (record) => (
+      //   <a href={`/salary/${record.id}`}>{record.FullName}</a>
+      // ),
     },
     // { title: "Năm sinh", dataIndex: "yearOfBirth" },
     // { title: "Giới tính", dataIndex: "gioitinh" },
@@ -79,7 +82,6 @@ const ListSalary = (props) => {
 
       render: (record) => (
         <>
-          {" "}
           {parseInt(record.luongcoban).toLocaleString("vi-VN", {
             style: "currency",
             currency: "VND",
@@ -129,7 +131,7 @@ const ListSalary = (props) => {
           <Col span={24}>
             <Form.Item label="Tổng Tiền Lương Chi Nhân Viên:">
               <br></br>
-              <h1 style={{ color: "red" }}>
+              <h1 style={{ color: "blue" }}>
                 {total.toLocaleString("vi-VN", {
                   style: "currency",
                   currency: "VND",
@@ -148,8 +150,8 @@ const ListSalary = (props) => {
         Them Nhan Vien
       </Button> */}
 
-      {Users && <Table dataSource={Users} columns={columns} />}
+      {/* {Users && <Table dataSource={Users} columns={columns} />} */}
     </>
   );
 };
-export default ListSalary;
+export default Show1;
