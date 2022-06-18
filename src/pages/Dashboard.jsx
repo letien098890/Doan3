@@ -54,12 +54,12 @@ const Dashboard = () => {
 
   return (
     <>
+      <h1 className="page-header">
+        Chào Mừng Bạn Đến Với Trang Quản Trị Viên Của Lamon Coffee
+      </h1>
       <Show />
       <Show1 />
       <div>
-        <h1 className="page-header">
-          Chào Mừng Bạn Đến Với Trang Quản Trị Viên Của Lamon Coffee
-        </h1>
         <div className="row">
           <div className="col-6">
             <div className="row">

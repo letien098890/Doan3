@@ -4,6 +4,13 @@
     align-items: center;
     justify-content: space-between;
     height: var(--topnav-height);
+    background: linear-gradient(
+      rgba(250, 163, 157, 0.404),
+      rgba(255, 255, 255, 0.068)
+    ),
+    url(./banner.jpg);
+  background-size: contain;
+  background-position: center;
 }
 
 .topnav__search {
@@ -77,4 +84,5 @@
 .topnav__right-user__name {
     font-size: 1rem;
     font-weight: 600;
+    color: rgb(0, 0, 0);
 }
