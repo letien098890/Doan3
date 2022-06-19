@@ -20,6 +20,7 @@ import moment from "moment";
 // import Item from "antd/lib/list/Item";
 import FormBill from "./formbill";
 import { SearchOutlined } from "@ant-design/icons";
+import { CSVLink } from "react-csv";
 
 // import Icon from "antd/lib/icon";
 const { Text } = Typography;
@@ -53,6 +54,21 @@ const getColumnSearchProps = (dataIndex) => ({
           onChange={(e) => setSelectedKeys([e])}
         />
       </Space>
+      {/* <div style={{ padding: 8 }}>
+        <DatePicker
+          placeholder={"Từ ngày"}
+          style={{ marginRight: "10px" }}
+          // format="YYYY-MM-DD"
+          // value={selectedKeys}
+          onChange={(e) => setSelectedKeys(e !== null ? [e] : [0])}
+        />
+        <DatePicker
+          placeholder={"Đến ngày"}
+          // format="YYYY-MM-DD"
+          // value={selectedKeys}
+          onChange={(e) => setSelectedKeys(e !== null ? [e] : [1])}
+        />
+      </div> */}
       <Space>
         <Button
           type="primary"
@@ -307,7 +323,32 @@ const ListBill = (props) => {
             </Form.Item>
           </Col>
         </Row>
-
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            {/* <CSVLink
+              filename={"Time Detail Report.csv"}
+              data={this.state.timesheetlist}
+              className="btn btn-primary"
+            >
+              Download me
+            </CSVLink> */}
+          </Col>
+          <Col span={8}>
+            <Form.Item label="Xuất Thống File Excel">
+              <CSVLink
+                data={bills}
+                className="btn btn-primary"
+                filename={"Bill Report.csv"}
+                onClick={() => {
+                  console.log("clicked");
+                }}
+              >
+                Xuất File
+              </CSVLink>
+            </Form.Item>
+          </Col>
+        </Row>
         {/* <Row>
           <Col span={24}>
             <Form.Item label="">
