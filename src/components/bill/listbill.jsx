@@ -13,7 +13,7 @@ import {
   // RangePicker,
 } from "antd";
 import { collection, doc, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { db } from "../../firebase-config";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
@@ -21,6 +21,8 @@ import moment from "moment";
 import FormBill from "./formbill";
 import { SearchOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
+// import ReactToPrint from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 
 // import Icon from "antd/lib/icon";
 const { Text } = Typography;
@@ -49,26 +51,8 @@ const getColumnSearchProps = (dataIndex) => ({
       }}
     >
       <Space direction="vertical" size={12}>
-        <RangePicker
-          // onChange={(e) => console.log("e", moment(e[0]).format("YYYY-MM-DD"))}
-          onChange={(e) => setSelectedKeys([e])}
-        />
+        <RangePicker onChange={(e) => setSelectedKeys([e])} />
       </Space>
-      {/* <div style={{ padding: 8 }}>
-        <DatePicker
-          placeholder={"Từ ngày"}
-          style={{ marginRight: "10px" }}
-          // format="YYYY-MM-DD"
-          // value={selectedKeys}
-          onChange={(e) => setSelectedKeys(e !== null ? [e] : [0])}
-        />
-        <DatePicker
-          placeholder={"Đến ngày"}
-          // format="YYYY-MM-DD"
-          // value={selectedKeys}
-          onChange={(e) => setSelectedKeys(e !== null ? [e] : [1])}
-        />
-      </div> */}
       <Space>
         <Button
           type="primary"
@@ -82,7 +66,6 @@ const getColumnSearchProps = (dataIndex) => ({
           Search
         </Button>
         <Button
-          // onClick={() => clearFilters && handleReset(clearFilters)}
           size="small"
           style={{
             width: 90,
@@ -130,6 +113,16 @@ const ListBill = (props) => {
   const [inforProduct, setInforProduct] = useState([]);
   const billsCollectionRef = collection(db, "Bill");
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const componentRef = useRef();
+  // const [headerText, setheaderText] = useState("Thống Kê Hoá Đơn");
+
+  const [printHeaderVisible, setprintHeaderVisible] = useState(true);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+
+    onBeforeGetContent: () => setprintHeaderVisible(true),
+  });
 
   function formatDate(date) {
     var d = new Date(date),
@@ -197,7 +190,13 @@ const ListBill = (props) => {
   // };
 
   const columns = [
-    { title: "STT", fixed: "left", dataIndex: "stt", width: 50 },
+    {
+      title: "STT",
+      fixed: "left",
+      dataIndex: "stt",
+      width: 50,
+      // fixed: "right",
+    },
     {
       title: "Id Khách Hàng",
       width: 20,
@@ -264,7 +263,7 @@ const ListBill = (props) => {
     },
     {
       title: "Sản Phẩm",
-      width: 100,
+      width: 120,
       render: (record) => (
         <>
           {" "}
@@ -294,111 +293,162 @@ const ListBill = (props) => {
     // },
   ];
   let history = useHistory();
-
   return (
     <>
-      <Form {...layout}>
-        <Row>
-          <Col span={8}>
-            <Form.Item label="Tổng Tiền Các Bill">
-              <br></br>
-              <h1 style={{ color: "red" }}>
-                {total.toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })}
-              </h1>
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label="Tổng Số Lượng Sản Phẩm Bán Ra:">
-              <br></br>
-              <h1 style={{ color: "red" }}>{total1}</h1>
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label="Tổng Số Lượng Bill">
-              <br></br>
-              <h1 style={{ color: "Blue" }}>{Tong}</h1>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
-            {/* <CSVLink
-              filename={"Time Detail Report.csv"}
-              data={this.state.timesheetlist}
-              className="btn btn-primary"
-            >
-              Download me
-            </CSVLink> */}
-          </Col>
-          <Col span={8}>
-            <Form.Item label="Xuất Thống File Excel">
-              <CSVLink
-                data={bills}
-                className="btn btn-primary"
-                filename={"Bill Report.csv"}
-                onClick={() => {
-                  console.log("clicked");
-                }}
+      <div ref={componentRef}>
+        <div
+          style={{
+            // visibility: printHeaderVisible ? "visible" : "hidden",
+            textAlign: "center",
+          }}
+        >
+          {/* <PrintHeader headerText={"headerText"} /> */}
+        </div>
+        <Form {...layout}>
+          <Row>
+            <Col span={8}>
+              <Form.Item label="Tổng Tiền Các Bill">
+                <br></br>
+                <h1 style={{ color: "red" }}>
+                  {total.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </h1>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Tổng Số Lượng Sản Phẩm Bán Ra:">
+                <br></br>
+                <h1 style={{ color: "red" }}>{total1}</h1>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Tổng Số Lượng Bill">
+                <br></br>
+                <h1 style={{ color: "Blue" }}>{Tong}</h1>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={8}></Col>
+            <Col span={8}>
+              <button
+                style={{ height: "30px", border: 0 }}
+                className="ant-btn-primary"
+                onClick={handlePrint}
               >
-                Xuất File
-              </CSVLink>
-            </Form.Item>
-          </Col>
-        </Row>
-        {/* <Row>
+                <i className="fa-solid fa-print" /> In Thống Kê Bảng Dữ Liệu
+              </button>
+              {/* <input
+              type="button"
+              value="In Bảng Thống Kê"
+              onclick={() => {
+                window.print();
+              }}
+            /> */}
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Xuất Thống File Excel">
+                <CSVLink
+                  data={bills}
+                  className="btn btn-primary"
+                  filename={"Bill Report.csv"}
+                  onClick={() => {
+                    console.log("clicked");
+                  }}
+                >
+                  Xuất File
+                </CSVLink>
+              </Form.Item>
+            </Col>
+          </Row>
+          {/* <Row>
           <Col span={24}>
             <Form.Item label="">
              
             </Form.Item>
           </Col>
         </Row> */}
-      </Form>
-      {bills.length > 0 && (
-        <Table
-          dataSource={bills}
-          columns={columns}
-          summary={(pageData) => {
-            let totalTien = 0;
-            let totalMon = 0;
-            pageData.forEach(({ CartPrice, quantity }) => {
-              totalTien += CartPrice;
-              totalMon += quantity;
-            });
-            return (
-              <>
-                <Table.Summary.Row>
-                  <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
-                  <Table.Summary.Cell></Table.Summary.Cell>
-                  <Table.Summary.Cell></Table.Summary.Cell>
+        </Form>
+        {bills.length > 0 && (
+          <Table
+            dataSource={bills}
+            columns={columns}
+            // scroll={{ x: 100 }}
+            summary={(pageData) => {
+              let totalTien = 0;
+              let totalMon = 0;
+              let totalproducts = [];
+              pageData.forEach(({ CartPrice, quantity, product }) => {
+                totalTien += CartPrice;
+                totalMon += quantity;
+                totalproducts.push(...product);
+              });
+              // console.log("all", totalproducts);
 
-                  <Table.Summary.Cell index={1}>
-                    <Text>{totalMon}</Text>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell index={2}>
-                    <Text type="danger">
-                      <h1>
-                        {totalTien.toLocaleString("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        })}
-                      </h1>
-                    </Text>
-                  </Table.Summary.Cell>
-                </Table.Summary.Row>
-              </>
-            );
-          }}
+              const counts = {};
+
+              // console.log("pro", totalproducts);
+              for (const pro of totalproducts) {
+                // counts[pro.name] = counts[pro.name] ? counts[pro.name] + 1 : 1;
+
+                if (counts.hasOwnProperty(pro.name)) {
+                  counts[pro.name] += pro.quantity;
+                } else {
+                  counts[pro.name] = pro.quantity;
+                }
+                // counts[pro.quantity]
+
+                // console.log("pro", pro.quantity);
+              }
+
+              console.log("count", counts);
+              return (
+                <>
+                  <Table.Summary.Row>
+                    <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
+                    <Table.Summary.Cell></Table.Summary.Cell>
+                    <Table.Summary.Cell></Table.Summary.Cell>
+                    <Table.Summary.Cell index={1}>
+                      <Text>{totalMon}</Text>
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={2}>
+                      <Text type="danger">
+                        <h1>
+                          {totalTien.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </h1>
+                      </Text>
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell colSpan={2}>
+                      {Object.entries(counts).map(([key, value]) => (
+                        <div>
+                          + <b>{key}</b> :{value}
+                        </div>
+                      ))}
+                    </Table.Summary.Cell>
+                    {/* <Table.Summary.Cell colSpan={1}>
+                      {Object.entries(counts1).map(([key, value]) => (
+                        <div>
+                          + <b>{key}</b> :{value}
+                        </div>
+                      ))}
+                    </Table.Summary.Cell> */}
+                  </Table.Summary.Row>
+                </>
+              );
+            }}
+          />
+        )}{" "}
+        <FormBill
+          setIsModalVisible={setIsModalVisible}
+          isModalVisible={isModalVisible}
+          inforProduct={inforProduct}
         />
-      )}{" "}
-      <FormBill
-        setIsModalVisible={setIsModalVisible}
-        isModalVisible={isModalVisible}
-        inforProduct={inforProduct}
-      />
+      </div>
     </>
   );
   // console.log(bills);

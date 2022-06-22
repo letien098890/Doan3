@@ -61,6 +61,7 @@ const ListStaffs = (props) => {
       title: "Tên Tài Khoản",
       render: (record) => <a href={`/staff/${record.id}`}>{record.FullName}</a>,
     },
+    { title: "Mật Khẩu", dataIndex: "Password" },
     {
       title: "Năm sinh",
       render: (record) => (

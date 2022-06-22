@@ -102,7 +102,7 @@ const ListSalary = (props) => {
       ),
     },
     {
-      title: "Ca Làm Việc (1: 7h-12 và 2: 13h-17h)",
+      title: "Ca",
       width: 100,
       dataIndex: "ca",
     },
@@ -136,6 +136,19 @@ const ListSalary = (props) => {
                 })}
               </h1>
             </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <Form.Item label="Thời Gian Làm Việc Của Ca"></Form.Item>
+          </Col>
+
+          <Col span={24}>
+            <Form.Item label="Ca Làm Việc 1: 7h-12 / CA 5 Giờ"> </Form.Item>
+          </Col>
+
+          <Col span={24}>
+            <Form.Item label="Ca Làm Việc 1: 7h-12 / CA 5 Giờ"></Form.Item>
           </Col>
         </Row>
       </Form>

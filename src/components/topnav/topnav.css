@@ -9,7 +9,7 @@
       rgba(255, 255, 255, 0.068)
     ),
     url(./banner.jpg);
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }
 
@@ -84,5 +84,5 @@
 .topnav__right-user__name {
     font-size: 1rem;
     font-weight: 600;
-    color: rgb(0, 0, 0);
+    color:  var(--txt-color);
 }

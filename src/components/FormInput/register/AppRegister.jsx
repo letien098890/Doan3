@@ -104,7 +104,7 @@ const Register = () => {
         diachi: diachi,
         Email: email,
         Password: password,
-        chucvu: "Admin",
+        chucvu: "Staff",
       });
 
       setSuccessMsg("Đăng ký thành công!");
