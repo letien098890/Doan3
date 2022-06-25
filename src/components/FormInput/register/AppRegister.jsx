@@ -112,16 +112,16 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setChucvu("");
-      setErrorMsg("");
+      setErrorMsg("Lỗi! Thử Lại");
 
       setSuccessMsg("");
     } catch (error) {
       setErrorMsg(error.message);
     }
   };
-  if (currentUser) {
-    history.push("/");
-  }
+  // if (currentUser) {
+  //   history.push("/");
+  // }
   return (
     <div className="container-signup">
       {successMsg && (

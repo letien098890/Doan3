@@ -255,11 +255,7 @@ const ListBill = (props) => {
       //   </>
       // ),
 
-      sorter: (a, b) =>
-        (a.CartPrice - b.CartPrice).toLocaleString("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }),
+      sorter: (a, b) => a.CartPrice - b.CartPrice,
     },
     {
       title: "Sản Phẩm",
